@@ -9,24 +9,20 @@ from service.models import Account
 from service.common import status  # HTTP Status Codes
 from . import app  # Import Flask application
 
-
 ############################################################
 # Health Endpoint
 ############################################################
 
 @app.route("/health")
-
 def health():
     """Health Status"""
     return jsonify(dict(status="OK")), status.HTTP_200_OK
-
 
 ######################################################################
 # GET INDEX
 ######################################################################
 
 @app.route("/")
-
 def index():
     """Root URL response"""
     return (
@@ -38,13 +34,11 @@ def index():
         status.HTTP_200_OK,
     )
 
-
 ######################################################################
 # CREATE A NEW ACCOUNT
 ######################################################################
 
 @app.route("/accounts", methods=["POST"])
-
 def create_accounts():    
     """
     Creates an Account
@@ -66,10 +60,9 @@ def create_accounts():
 ######################################################################
 # LIST ALL ACCOUNTS
 ######################################################################
-
 # ... place you code here to LIST accounts ...
-@app.route("/accounts", methods=["GET"])
 
+@app.route("/accounts", methods=["GET"])
 def list_all_accounts():
     """ Read all accounts"""
     app.logger.info("Request to read all accounts")
@@ -82,10 +75,9 @@ def list_all_accounts():
 ######################################################################
 # READ AN ACCOUNT
 ######################################################################
-
 # ... place you code here to READ an account ...
-@app.route("/accounts/<int:account_id>", methods=["GET"])
 
+@app.route("/accounts/<int:account_id>", methods=["GET"])
 def read_account(account_id):    
     """" Read an Account by accound id"""
     app.logger.info("Request to read an Account with id: %s", account_id)
@@ -97,10 +89,9 @@ def read_account(account_id):
 ######################################################################
 # UPDATE AN EXISTING ACCOUNT
 ######################################################################
-
 # ... place you code here to UPDATE an account ...
-@app.route("/accounts/<int:account_id>", methods=["PUT"])
 
+@app.route("/accounts/<int:account_id>", methods=["PUT"])
 def update_account(account_id):
     """ Update an account by account id"""    
     app.logger.info("Request to update account with id: %s", account_id)
@@ -109,15 +100,15 @@ def update_account(account_id):
         abort(status.HTTP_404_NOT_FOUND, f"Not found the account with ID - [{account_id}]")
     account.deserialize(request.get_json())
     account.update()
+    
     return account.serialize(), status.HTTP_200_OK
 
 ######################################################################
 # DELETE AN ACCOUNT
 ######################################################################
-
 # ... place you code here to DELETE an account ...
-@app.route("/accounts/<int:account_id>", methods=["DELETE"])
 
+@app.route("/accounts/<int:account_id>", methods=["DELETE"])
 def delete_accounts(account_id):
     """
     Delete an Account
@@ -127,6 +118,7 @@ def delete_accounts(account_id):
     account = Account.find(account_id)
     if account:
         account.delete()
+
     return "", status.HTTP_204_NO_CONTENT
 
 ######################################################################
@@ -134,13 +126,14 @@ def delete_accounts(account_id):
 ######################################################################
 
 def check_content_type(media_type):
-
     """Checks that the media type is correct"""
     content_type = request.headers.get("Content-Type")
     if content_type and content_type == media_type:
+
         return
     app.logger.error("Invalid Content-Type: %s", content_type)
     abort(
         status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
         f"Content-Type must be {media_type}",
     )
+
