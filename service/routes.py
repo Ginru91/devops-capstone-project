@@ -38,6 +38,7 @@ def index():
 ######################################################################
 # CREATE A NEW ACCOUNT
 ######################################################################
+
 @app.route("/accounts", methods=["POST"])
 def create_accounts():
     """
@@ -62,6 +63,7 @@ def create_accounts():
 ######################################################################
 
 # ... place you code here to LIST accounts ...
+
 @app.route("/accounts", methods=["GET"])
 def list_all_accounts():
     """ Read all accounts"""
@@ -77,6 +79,7 @@ def list_all_accounts():
 ######################################################################
 
 # ... place you code here to READ an account ...
+
 @app.route("/accounts/<int:account_id>", methods=["GET"])
 def read_account(account_id):
     """" Read an Account by accound id"""
@@ -85,8 +88,6 @@ def read_account(account_id):
     if not account:
         abort(status.HTTP_404_NOT_FOUND, f"Not found the account with ID - {account_id}")
     return account.serialize(), status.HTTP_200_OK
-
-
 
 ######################################################################
 # UPDATE AN EXISTING ACCOUNT
@@ -124,7 +125,6 @@ def delete_accounts(account_id):
 ######################################################################
 #  U T I L I T Y   F U N C T I O N S
 ######################################################################
-
 
 def check_content_type(media_type):
     """Checks that the media type is correct"""
