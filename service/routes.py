@@ -13,7 +13,9 @@ from . import app  # Import Flask application
 ############################################################
 # Health Endpoint
 ############################################################
+
 @app.route("/health")
+
 def health():
     """Health Status"""
     return jsonify(dict(status="OK")), status.HTTP_200_OK
@@ -22,7 +24,9 @@ def health():
 ######################################################################
 # GET INDEX
 ######################################################################
+
 @app.route("/")
+
 def index():
     """Root URL response"""
     return (
@@ -40,7 +44,8 @@ def index():
 ######################################################################
 
 @app.route("/accounts", methods=["POST"])
-def create_accounts():
+
+def create_accounts():    
     """
     Creates an Account
     This endpoint will create an Account based the data in the body that is posted
@@ -64,6 +69,7 @@ def create_accounts():
 
 # ... place you code here to LIST accounts ...
 @app.route("/accounts", methods=["GET"])
+
 def list_all_accounts():
     """ Read all accounts"""
     app.logger.info("Request to read all accounts")
@@ -79,7 +85,8 @@ def list_all_accounts():
 
 # ... place you code here to READ an account ...
 @app.route("/accounts/<int:account_id>", methods=["GET"])
-def read_account(account_id):
+
+def read_account(account_id):    
     """" Read an Account by accound id"""
     app.logger.info("Request to read an Account with id: %s", account_id)
     account = Account.find(account_id)
@@ -93,8 +100,8 @@ def read_account(account_id):
 
 # ... place you code here to UPDATE an account ...
 @app.route("/accounts/<int:account_id>", methods=["PUT"])
-def update_account(account_id):
 
+def update_account(account_id):
     """ Update an account by account id"""    
     app.logger.info("Request to update account with id: %s", account_id)
     account = Account.find(account_id)
@@ -127,7 +134,7 @@ def delete_accounts(account_id):
 ######################################################################
 
 def check_content_type(media_type):
-    
+
     """Checks that the media type is correct"""
     content_type = request.headers.get("Content-Type")
     if content_type and content_type == media_type:
