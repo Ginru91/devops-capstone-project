@@ -20,11 +20,12 @@ DATABASE_URI = os.getenv(
 
 BASE_URL = "/accounts"
 
-HTTPS_ENVIRON= {'wsgi.url_scheme': 'https'}
+HTTPS_ENVIRON = {'wsgi.url_scheme': 'https'}
 
 ######################################################################
 #  T E S T   C A S E S
 ######################################################################
+
 class TestAccountService(TestCase):
     """Account Service Tests"""
 
@@ -99,11 +100,11 @@ class TestAccountService(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        # Make sure location header is set
+# Make sure location header is set
         location = response.headers.get("Location", None)
         self.assertIsNotNone(location)
 
-        # Check the data is correct
+# Check the data is correct
         new_account = response.get_json()
         self.assertEqual(new_account["name"], account.name)
         self.assertEqual(new_account["email"], account.email)
@@ -126,7 +127,7 @@ class TestAccountService(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
 
-    # ADD YOUR TEST CASES HERE ...
+# ADD YOUR TEST CASES HERE ...
 
     def test_read_an_account(self):
         """
@@ -142,7 +143,7 @@ class TestAccountService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
         self.assertEqual(data["name"], account.name)
-    
+
     def test_account_not_found(self):
         """ It should get 404 error response if account not exist """
         response = self.client.get(
@@ -163,7 +164,7 @@ class TestAccountService(TestCase):
 
     def test_update_an_account(self):
         """ It should update an account by account ID """
-        # creating an account
+# creating an account
         test_account = AccountFactory()
         response = self.client.post(
             BASE_URL,
@@ -172,7 +173,7 @@ class TestAccountService(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        #updating account
+# updating account
         new_account = response.get_json()
         new_account["name"] = "Dima Upd"
         response = self.client.put(
