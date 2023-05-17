@@ -148,8 +148,8 @@ class TestAccountService(TestCase):
     def test_account_not_found(self):
         """ It should get 404 error response if account not exist """
         response = self.client.get(
-            f"{BASE_URL}/0"
-            )
+        f"{BASE_URL}/0"
+        )
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_list_all_accounts(self):
@@ -165,16 +165,16 @@ class TestAccountService(TestCase):
 
     def test_update_an_account(self):
         """ It should update an account by account ID """
-# creating an account
         test_account = AccountFactory()
         response = self.client.post(
-            BASE_URL,
-            json=test_account.serialize(),
-            content_type="application/json"
+        BASE_URL,
+        json=test_account.serialize(),
+        content_type="application/json"
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
 # updating account
+
         new_account = response.get_json()
         new_account["name"] = "Dima Upd"
         response = self.client.put(
@@ -210,3 +210,4 @@ class TestAccountService(TestCase):
         response = self.client.get('/', environ_overrides=HTTPS_ENVIRON)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.headers.get('Access-Control-Allow-Origin'), '*')
+
